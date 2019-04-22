@@ -16,8 +16,7 @@ The goal for this project is to create an end-to-end Proof-of-Concept for a prod
 
 ### Technical Description
 
-![alt text](https://github.com/sajivijaysadas/MyRetail/tree/master/src/main/resources/static/images/arch.png "")
-
+![Arch](/src/main/resources/static/arch.png)
 
 
 ### Build and Run
