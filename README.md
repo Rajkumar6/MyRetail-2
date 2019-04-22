@@ -49,7 +49,7 @@ Input browser with <http://localhost:8083/hystrix>, Enter hystrix stream Url as 
 
 in 60 seconds , if 50% of the backend API/DB call fails , Hystrix will break the circuit for corresponding API/DB call and sleep for 10 secs. You can provide product ids that ar enot in the target system to verify this.
 
-![alt text](https://github.com/sajivijaysadas/MyRetail/tree/master/src/main/resources/static/images/hystrix.png "")
+![alt text](https://github.com/sajivijaysadas/MyRetail/tree/master/src/main/resources/static/hystrix.png "")
 
 
 
