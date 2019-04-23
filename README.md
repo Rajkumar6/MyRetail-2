@@ -18,7 +18,7 @@ The goal for this project is to create an end-to-end Proof-of-Concept for a prod
 
 ![Arch](/src/main/resources/static/arch_dia.png)
 
-For both GetProductDetails and UpdatePrice API, Controller will subscribe to an Observable method in Service Class. Observable in turn invoke Hystrix Command Class for each external calls and provide the call back to Controller.
+For both GetProductDetails and UpdatePrice API, controller will subscribe to an observable method in service class. Observable in turn invoke Hystrix Command class for each external calls and provide the call back to controller.
 
 For GetProductDetails, request will be asynchronously submitted to external systems like Target API and Mongo DB to fetch product name and product price respectively. Service class will then merge the output from each external calls and provide consolidated response to controller. Error code and error message will be added to the response json incase of any failure from external services, For example, if GetProductPrice from database gets timedout, reponse json will have valid product name returned from GetProductName and error information for Price.
 
@@ -33,11 +33,11 @@ For GetProductDetails, request will be asynchronously submitted to external syst
   ]
 }
 
-UpdatePriceAPI method is synchronous, Service class will first invoke getPricecommand to validate the product availabilty in database and then invoke updatepricecommand to update price details in database.
+UpdatePriceAPI method is synchronous, service class will first invoke getPricecommand to validate the product availabilty in database and then invoke updatepricecommand to update price details in database.
 
 getPricecommand and updatepricecommand are hystrix command classes which will help in breaking the circuit incase of failure from any of the external API/DB call. Current configuraion of hystrix is set as follows. For an interval of 60 seconds, if 50% of the backend API/DB call fails, circuit will be open for 10 secs. This can be tested by providing product ids that are not available in target system.
 
-EmbeddedMongoDb is used as database. Set of products will be inserted in to the database during server startup through spring configuration. MongoRepository is used to save and fetch Price details. Product Price will be stored to Ehcache during update price and retrived from cache during get price. 
+EmbeddedMongoDb is used as database. A set of products will be inserted in to the database during application startup through spring configuration. MongoRepository is used to save and fetch Price details. Product Price will be stored to Ehcache during update price and retrived from cache during get price. 
 
 ### Build and Run
 
