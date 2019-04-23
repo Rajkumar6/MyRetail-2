@@ -20,7 +20,7 @@ The goal for this project is to create an end-to-end Proof-of-Concept for a prod
 
 For both GetProductDetails and UpdatePrice API, controller will subscribe to Observable in Service. Service in turn invoke Hystrix Command Class for each external layers and provide the call back to Controller.
 
-For GetProductDetails, request will be asynchronously submitted to external target API and Embedded Mongo DB to receive product name and  price respectively. Service class will then merge output from each calls and provide consolidated response to controller. Incase of failure from any of the external services, corresponding error code and error message will be added to the response json. For example, if GetProductPrice from DB gets timedout, reponse will have error message for Price and valid product name returned from GetProductName.
+For GetProductDetails, request will be asynchronously submitted to external target API and Embedded Mongo DB to fetch product name and  price respectively. Service class will then merge output from each calls and provide consolidated response to controller. Incase of failure from any of the external services, corresponding error code and error message will be added to the response json. For example, if GetProductPrice from DB gets timedout, reponse will have error message for Price and valid product name returned from GetProductName.
 
 {
   "productId": 13860428,
@@ -35,9 +35,9 @@ For GetProductDetails, request will be asynchronously submitted to external targ
 
 UpdatePriceAPI is synchronous, Service class will first invoke getPricecommand to validate the product availabilty and then invoke updateprice to update price details in database.
 
-EmbeddedMongoDb is used as database and few products will be inserted duriong the server startup through spring configuration. MongoRepository is used to save and fetch Price details. PriceDetails will be retrived from Ehcache and update price will refresh the cache.
+EmbeddedMongoDb is used as database and few products will be inserted during the server startup through spring configuration. MongoRepository is used to save and fetch Price details. PriceDetails will be updated to Ehcache and retrived from cache.
 
-Hystrix will break the circuit for corresponding API/DB call during timout. Current configuraion is, for a period of 60 seconds, if 50% of the backend API/DB call fails, circuit will be open for 10 secs. This can be tested by providing product ids that are not in target system.
+Hystrix will break the circuit for corresponding API/DB call incase of timout. Current configuraion is, for a period of 60 seconds, if 50% of the backend API/DB call fails, circuit will be open for 10 secs. This can be tested by providing product ids that are not in target system.
 
 ### Build and Run
 
