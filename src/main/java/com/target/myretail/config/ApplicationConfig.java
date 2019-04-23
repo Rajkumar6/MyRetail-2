@@ -22,10 +22,10 @@ public class ApplicationConfig {
 			productPriceRepository.deleteAll();
 			productPriceRepository.save(new ProductPrice(13860428L, new BigDecimal("299.99"), "USD"));
 			productPriceRepository.save(new ProductPrice(15117729L, new BigDecimal("399.99"), "USD"));
-			productPriceRepository.save(new ProductPrice(16483589L, new BigDecimal("99.99"), "USD"));
-			productPriceRepository.save(new ProductPrice(16696652L, new BigDecimal("399.99"), "USD"));
-			productPriceRepository.save(new ProductPrice(16752456L, new BigDecimal("99.99"), "USD"));
-			productPriceRepository.save(new ProductPrice(15643793L, new BigDecimal("99.99"), "USD"));		
+			productPriceRepository.save(new ProductPrice(16483589L, new BigDecimal("499.99"), "USD"));
+			productPriceRepository.save(new ProductPrice(16696652L, new BigDecimal("599.99"), "USD"));
+			productPriceRepository.save(new ProductPrice(16752456L, new BigDecimal("699.99"), "USD"));
+			productPriceRepository.save(new ProductPrice(15643793L, new BigDecimal("799.99"), "USD"));		
 
 		};
 	}
