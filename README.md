@@ -18,7 +18,7 @@ The goal for this project is to create an end-to-end Proof-of-Concept for a prod
 
 ![Arch](/src/main/resources/static/arch.png)
 
-For both GetProductDetails and UpdatePrice API, Controller will subscribe to an Observable in Service Class. Service in turn invoke Hystrix Command Class for each external layers and provide the call back to Controller.
+For both GetProductDetails and UpdatePrice API, Controller will subscribe to an Observable method in Service Class. Observable in turn invoke Hystrix Command Class for each external calls and provide the call back to Controller.
 
 For GetProductDetails, request will be asynchronously submitted to external systems like Target API and Mongo DB to fetch product name and product price respectively. Service class will then merge the output from each external calls and provide consolidated response to controller. Error code and error message will be added to the response json incase of any failure from external services, For example, if GetProductPrice from database gets timedout, reponse json will have valid product name returned from GetProductName and error information for Price.
 
