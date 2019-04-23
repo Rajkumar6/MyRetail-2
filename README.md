@@ -16,7 +16,7 @@ The goal for this project is to create an end-to-end Proof-of-Concept for a prod
 
 ### Technical Description
 
-![Arch](/src/main/resources/static/arch_diag.png)
+![Arch](/src/main/resources/static/arch_dia.png)
 
 For both GetProductDetails and UpdatePrice API, controller will subscribe to an observable method in service class. Observable in turn invoke Hystrix Command class for each external calls and provide the call back to controller.
 
