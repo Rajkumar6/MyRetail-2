@@ -18,9 +18,9 @@ The goal for this project is to create an end-to-end Proof-of-Concept for a prod
 
 ![Arch](/src/main/resources/static/arch.png)
 
-For both GetProductDetails and UpdatePrice API, controller will subscribe to Observable in Service. Service in turn invoke Hystrix Command Class for each external layers and provide the call back to Controller.
+For both GetProductDetails and UpdatePrice API, Controller will subscribe to an Observable in Service Class. Service in turn invoke Hystrix Command Class for each external layers and provide the call back to Controller.
 
-For GetProductDetails, request will be asynchronously submitted to external target API and Embedded Mongo DB to fetch product name and  price respectively. Service class will then merge output from each calls and provide consolidated response to controller. Incase of failure from any of the external services, corresponding error code and error message will be added to the response json. For example, if GetProductPrice from DB gets timedout, reponse will have error message for Price and valid product name returned from GetProductName.
+For GetProductDetails, request will be asynchronously submitted to external systems like Target API and Mongo DB to fetch product name and product price respectively. Service class will then merge the output from each external calls and provide consolidated response to controller. Error code and error message will be added to the response json incase of any failure from external services, For example, if GetProductPrice from database gets timedout, reponse json will have valid product name returned from GetProductName and error information for Price.
 
 {
   "productId": 13860428,
@@ -33,11 +33,11 @@ For GetProductDetails, request will be asynchronously submitted to external targ
   ]
 }
 
-UpdatePriceAPI is synchronous, Service class will first invoke getPricecommand to validate the product availabilty and then invoke updateprice to update price details in database.
+UpdatePriceAPI method is synchronous, Service class will first invoke getPricecommand to validate the product availabilty in database and then invoke updatepricecommand to update price details in database.
 
-EmbeddedMongoDb is used as database and few products will be inserted during the server startup through spring configuration. MongoRepository is used to save and fetch Price details. PriceDetails will be updated to Ehcache and retrived from cache.
+getPricecommand and updatepricecommand are hystrix command classes which will help in breaking the circuit incase of failure from any of the external API/DB call. Current configuraion of hystrix is set as follows. For an interval of 60 seconds, if 50% of the backend API/DB call fails, circuit will be open for 10 secs. This can be tested by providing product ids that are not available in target system.
 
-Hystrix will break the circuit for corresponding API/DB call incase of timout. Current configuraion is, for a period of 60 seconds, if 50% of the backend API/DB call fails, circuit will be open for 10 secs. This can be tested by providing product ids that are not in target system.
+EmbeddedMongoDb is used as database. Set of products will be inserted in to the database during server startup through spring configuration. MongoRepository is used to save and fetch Price details. Product Price will be stored to Ehcache during update price and retrived from cache during get price. 
 
 ### Build and Run
 
